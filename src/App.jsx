@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import './App.css'
 
 const STORAGE_KEY = 'lys-layout-project-inquiry'
+const BASE_PATH = getBasePath()
 
 const DETAIL_ROUTES = {
   obsidian: '/selected-works/the-obsidian-suite',
@@ -417,11 +418,13 @@ const BUDGET_OPTIONS = [
 ]
 
 function normalizePath(pathname) {
-  if (!pathname || pathname === '/') {
+  const strippedPath = stripBasePath(pathname)
+
+  if (!strippedPath || strippedPath === '/') {
     return '/'
   }
 
-  return pathname.replace(/\/+$/, '')
+  return strippedPath.replace(/\/+$/, '')
 }
 
 function getCurrentRoute() {
@@ -458,6 +461,41 @@ function isInternalHref(href) {
   } catch {
     return false
   }
+}
+
+function getBasePath() {
+  const viteBase = import.meta.env.BASE_URL || '/'
+  const normalized = viteBase.endsWith('/') ? viteBase.slice(0, -1) : viteBase
+
+  return normalized === '' || normalized === '/' ? '' : normalized
+}
+
+function stripBasePath(pathname = '/') {
+  if (!BASE_PATH) {
+    return pathname || '/'
+  }
+
+  if (pathname === BASE_PATH) {
+    return '/'
+  }
+
+  if (pathname.startsWith(`${BASE_PATH}/`)) {
+    return pathname.slice(BASE_PATH.length) || '/'
+  }
+
+  return pathname || '/'
+}
+
+function addBasePath(pathname = '/') {
+  if (!BASE_PATH) {
+    return pathname || '/'
+  }
+
+  if (!pathname || pathname === '/') {
+    return `${BASE_PATH}/`
+  }
+
+  return `${BASE_PATH}${pathname}`
 }
 
 function createDefaultInquiryState() {
@@ -691,9 +729,9 @@ function App() {
     }
 
     if (options.replace) {
-      window.history.replaceState({}, '', nextHref)
+      window.history.replaceState({}, '', addBasePath(nextHref))
     } else {
-      window.history.pushState({}, '', nextHref)
+      window.history.pushState({}, '', addBasePath(nextHref))
     }
 
     setRoute(nextRoute)
@@ -743,11 +781,12 @@ function App() {
 
 function AppLink({ href, navigate, className, children, onClick, ...props }) {
   const isInternal = isInternalHref(href)
+  const resolvedHref = isInternal ? addBasePath(href) : href
 
   return (
     <a
       className={className}
-      href={href}
+      href={resolvedHref}
       onClick={(event) => {
         onClick?.(event)
 

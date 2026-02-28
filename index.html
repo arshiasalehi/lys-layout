@@ -53,6 +53,18 @@
       name="description"
       content="Lys & Layout is a Montreal interior design studio creating cinematic, timeless residential spaces."
     />
+    <script>
+      ;(() => {
+        const redirectPath = sessionStorage.getItem('github-pages-redirect')
+
+        if (!redirectPath) {
+          return
+        }
+
+        sessionStorage.removeItem('github-pages-redirect')
+        window.history.replaceState(null, '', redirectPath)
+      })()
+    </script>
     <title>Lys &amp; Layout | Interior Design Studio</title>
   </head>
   <body>

@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Lys &amp; Layout</title>
+    <script>
+      ;(() => {
+        const basePath = '/lys-layout'
+        const currentPath =
+          window.location.pathname + window.location.search + window.location.hash
+        const appPath = currentPath.startsWith(basePath)
+          ? currentPath.slice(basePath.length) || '/'
+          : currentPath
+
+        sessionStorage.setItem(
+          'github-pages-redirect',
+          `${basePath}${appPath === '/' ? '/' : appPath}`
+        )
+
+        window.location.replace(`${basePath}/`)
+      })()
+    </script>
+  </head>
+  <body></body>
+</html>
