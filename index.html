@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/brand-logo.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              primary: '#f2a20d',
+              'background-light': '#f8f7f5',
+              'background-dark': '#1a160f',
+              'about-background-dark': '#0a0908',
+              'services-background-dark': '#12110f',
+              'flow-espresso': '#15120d',
+              espresso: '#221c10',
+              carbon: '#12110e',
+              'work-background-dark': '#12110e',
+              'work-carbon': '#0d0c0a',
+              'amber-soft': '#3d2b1f',
+              'neutral-muted': '#2a2721',
+              brass: '#a68a56',
+              'stone-warm': '#a8a29e',
+            },
+            fontFamily: {
+              display: ['Manrope', 'sans-serif'],
+              serif: ['Playfair Display', 'serif'],
+            },
+            borderRadius: {
+              DEFAULT: '0.5rem',
+              lg: '1rem',
+              xl: '1.5rem',
+              arch: '120px 120px 1rem 1rem',
+              full: '9999px',
+            },
+          },
+        },
+      }
+    </script>
+    <meta
+      name="description"
+      content="Lys & Layout is a Montreal interior design studio creating cinematic, timeless residential spaces."
+    />
+    <title>Lys &amp; Layout | Interior Design Studio</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
